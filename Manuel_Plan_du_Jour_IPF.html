@@ -28,7 +28,11 @@
   --blue:#4B5FA8; --green:#007154; --brick:#A1473D; --grey:#5A646E; --blood:#96131C;
   --asia:#4C5FA8; --lndn:#A8434C; --nyam:#2C7A5E;
 
-  --measure:68ch;
+  /* Elargi de 68 a 74ch : sur un grand ecran, la colonne a 68ch/60rem
+     laissait une marge nettement plus genereuse que la version imprimee
+     (papier A4, marges de 14mm = 6,7% de la largeur seulement), ce qui a
+     ete signale comme un desequilibre visuel par rapport au PDF. */
+  --measure:74ch;
   --fs-body:1.0625rem;
   --shadow-sheet:0 2px 6px rgba(0,0,0,.30), 0 24px 60px -22px rgba(0,0,0,.55);
 }
@@ -50,7 +54,7 @@ body{
 }
 
 /* ── ossature ─────────────────────────────────────────────────────────── */
-.book{max-width:60rem;margin:0 auto;padding:clamp(1rem,3vw,3rem) clamp(.6rem,2.5vw,2rem) 5rem}
+.book{max-width:68rem;margin:0 auto;padding:clamp(1rem,3vw,3rem) clamp(.6rem,2.5vw,2rem) 5rem}
 .sheet{
   background:var(--sheet);
   box-shadow:var(--shadow-sheet);
