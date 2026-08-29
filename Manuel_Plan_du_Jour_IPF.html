@@ -59,6 +59,19 @@ body{
   overflow:hidden;
 }
 .col{max-width:var(--measure)}
+/* Toute la prose du corps se justifie desormais, comme dans l'outil lui-meme
+   (.hint, .flag-q) : bord gauche ET droit alignes, plutot qu'un bord droit
+   en dents de scie qui donnait l'impression de marges mal reglees.
+   hyphens:auto coupe les mots trop longs pour eviter les grands vides qu'une
+   justification stricte peut creer sur une colonne etroite (68ch). */
+.col p, .col li, .col dd, .tw td, .box p{
+  text-align:justify;text-justify:inter-word;hyphens:auto;
+}
+.lead{text-align:justify;text-justify:inter-word;hyphens:auto}
+/* Seule exception : la citation vedette est une piece courte et centree,
+   pas de la prose courante — la justifier ferait un bord droit absurde
+   sur 1-2 lignes. */
+.pull p{text-align:left;hyphens:none}
 .wide{max-width:none}
 
 /* ── PAGE DE GARDE ────────────────────────────────────────────────────────
@@ -585,7 +598,7 @@ td.k{font-family:"IBM Plex Mono",monospace;font-size:.84rem;color:var(--gold);
 }
 </style>
 
-<div class="book">
+<div class="book" lang="fr">
 
 <!-- ══════════════════ PAGE DE GARDE ══════════════════ -->
 <section class="cover">
