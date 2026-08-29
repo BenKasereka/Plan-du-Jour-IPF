@@ -62,7 +62,17 @@ body{
   margin-bottom:clamp(1.2rem,3vw,2.4rem);
   overflow:hidden;
 }
-.col{max-width:var(--measure)}
+/* La VRAIE cause du desequilibre signale a plusieurs reprises : .sheet (la
+   carte creme) n'a jamais eu de plafond propre, elle suit .book (1088px) —
+   mais .col (le texte lui-meme) restait limite a 74ch, bien plus etroit.
+   Resultat : la carte s'etendait plus loin que le texte, laissant un vide
+   visible entre la fin d'une ligne et le bord de la carte — exactement ce
+   que montraient les captures, capture apres capture. L'impression n'avait
+   jamais ce plafond separe (.col{max-width:none} deja en place en print,
+   voir plus bas) : le texte y remplit toute la page, sans decalage entre
+   carte et contenu. L'ecran fait desormais pareil : .col suit .sheet, pas
+   une largeur de lecture inventee a part. */
+.col{max-width:none}
 /* Toute la prose du corps se justifie desormais, comme dans l'outil lui-meme
    (.hint, .flag-q) : bord gauche ET droit alignes, plutot qu'un bord droit
    en dents de scie qui donnait l'impression de marges mal reglees.
