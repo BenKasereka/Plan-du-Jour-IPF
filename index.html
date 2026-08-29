@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Plan du Jour I-P-F — BK-BOOST Ltd.</title>
+<style>
+  :root{
+    --chrome-hi:#14535A; --chrome:#0E3F45; --navy:#2F4A7C; --navy-lo:#20304F;
+    --gold:#E8C77A; --paper:#EDEBE4; --lime:#C6EE4A;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(155deg,var(--chrome-hi) 0%,var(--chrome) 35%,var(--navy) 75%,var(--navy-lo) 100%);
+    font-family:"Segoe UI",system-ui,sans-serif;color:var(--paper);
+    padding:2rem 1.2rem;
+  }
+  .wrap{max-width:640px;width:100%}
+  .eyebrow{font-family:"Consolas",monospace;font-size:.75rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--gold);margin:0 0 .6rem}
+  h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2rem,6vw,3rem);
+    line-height:1.05;margin:0 0 .5rem;color:#FFF}
+  h1 span{color:var(--lime)}
+  p.tagline{font-size:1.05rem;line-height:1.5;color:var(--paper);opacity:.9;
+    margin:0 0 2.2rem;max-width:46ch}
+  .cards{display:grid;gap:.9rem}
+  a.card{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:1.1rem 1.3rem;border-radius:4px;text-decoration:none;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);
+    color:#FFF;transition:background .15s,border-color .15s;
+  }
+  a.card:hover{background:rgba(255,255,255,.11);border-color:var(--gold)}
+  a.card .nm{font-weight:600;font-size:1.05rem}
+  a.card .ds{display:block;font-size:.85rem;color:var(--paper);opacity:.75;margin-top:.15rem;font-weight:400}
+  a.card .go{font-family:"Consolas",monospace;font-size:.85rem;color:var(--gold);flex:0 0 auto}
+  footer{margin-top:2.2rem;font-size:.78rem;color:var(--paper);opacity:.55}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="eyebrow">BK-BOOST Ltd. · Stratégie I-P-F</p>
+    <h1>Plan du Jour<br><span>I-P-F</span></h1>
+    <p class="tagline">L'outil de décision institutionnelle du pré-vol au verdict, sa stratégie de référence, et son manuel officiel — ouvrez directement dans le navigateur, aucun téléchargement requis.</p>
+    <div class="cards">
+      <a class="card" href="Plan_du_Jour_IPF.html">
+        <span><span class="nm">Plan du Jour</span><span class="ds">L'outil — checklist et calculateur du jour</span></span>
+        <span class="go">Ouvrir →</span>
+      </a>
+      <a class="card" href="Strategie_IPF.html">
+        <span><span class="nm">Stratégie I-P-F</span><span class="ds">La méthode de référence, corrigée</span></span>
+        <span class="go">Ouvrir →</span>
+      </a>
+      <a class="card" href="Manuel_Plan_du_Jour_IPF.html">
+        <span><span class="nm">Manuel officiel</span><span class="ds">Guide d'utilisation complet, en ligne</span></span>
+        <span class="go">Ouvrir →</span>
+      </a>
+      <a class="card" href="Manuel_Plan_du_Jour_IPF.pdf">
+        <span><span class="nm">Manuel — version PDF</span><span class="ds">Pour lecture hors ligne ou impression</span></span>
+        <span class="go">Télécharger →</span>
+      </a>
+    </div>
+    <footer>© BK-BOOST Ltd. — Benjamin Kasereka Vinyatsi</footer>
+  </div>
+</body>
+</html>

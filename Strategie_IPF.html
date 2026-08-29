@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stratégie I-P-F — BK-BOOSTLtd</title>
+<style>
+:root{
+  --sans:"Segoe UI",Roboto,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Cascadia Mono",Consolas,"SF Mono",Menlo,"DejaVu Sans Mono",monospace;
+
+  --page:#060B12;
+  --panel:#0D1B2A;
+  --panel-2:#12161C;
+  --line:#1E3A5F;
+  --line-soft:#1A2A3A;
+  --gold:#C9A84C;
+  --gold-soft:#5A4A00;
+  --txt:#E8E6E0;
+  --txt-2:#C2C0B6;
+  --txt-3:#8BAAC8;
+  --txt-4:#6B8CAE;
+  --blue:#90C0FF;   --blue-bg:#0D2847;  --blue-bd:#1E4A8A;
+  --green:#5DCAA5;  --green-bg:#071A10; --green-bd:#1A5C3A;
+  --amber:#EDA100;  --amber-bg:#1A1200; --amber-bd:#6B4A00;
+  --red:#F09595;    --red-bg:#1A0807;   --red-bd:#7A2020;
+  --violet:#B09FE0; --violet-bg:#1A0A2A;--violet-bd:#5A3A9A;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:var(--page);
+  color:var(--txt);
+  font-family:var(--sans);
+  line-height:1.45;
+  padding:20px;
+}
+.wrap{max-width:1500px;margin:0 auto;padding-bottom:24px}
+
+/* ── header ── */
+.header{background:var(--panel);border-radius:12px;padding:18px 24px 14px;margin-bottom:14px;border:1px solid var(--line)}
+.header-title{font-size:16px;font-weight:600;color:var(--gold);letter-spacing:.08em;text-align:center}
+.header-sub{font-size:12px;color:var(--txt-4);text-align:center;margin-top:4px}
+.header-tags{display:flex;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tag{background:#1A2E45;border:1px solid #2A4A6B;border-radius:4px;padding:3px 10px;font-size:11px;color:var(--txt-3)}
+.tag.tz{background:var(--blue-bg);border-color:var(--blue-bd);color:var(--blue);font-variant-numeric:tabular-nums}
+
+.start-end{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 10px;flex-wrap:wrap}
+.badge-start{background:var(--panel);border:1px solid var(--gold);border-radius:4px;padding:4px 12px;font-size:10px;font-weight:600;color:var(--gold)}
+.badge-exec{background:var(--gold);border-radius:4px;padding:4px 12px;font-size:10px;font-weight:700;color:#0D1200}
+.start-end .mid{font-size:10px;color:var(--txt-3);letter-spacing:.14em}
+
+/* ── flow ── */
+.flow{display:flex;align-items:flex-start;gap:0}
+.step-col{flex:1;min-width:0}
+.arrow-col{display:flex;align-items:center;justify-content:center;width:32px;flex-shrink:0;padding-top:34px}
+.step-label{font-size:10px;font-weight:600;letter-spacing:.1em;color:var(--gold);text-align:center;margin-bottom:6px;text-transform:uppercase}
+.step-card{border-radius:10px;border:1px solid;overflow:hidden}
+.step-I .step-card{border-color:var(--blue-bd);background:#0A1929}
+.step-P .step-card{border-color:var(--green-bd);background:#071A10}
+.step-F .step-card{border-color:#5C3A1A;background:#1A0E07}
+.exec-col .step-card{border-color:var(--gold-soft);background:#1A1200}
+.step-header{padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid}
+.step-I .step-header{background:#0D2847;border-color:var(--blue-bd)}
+.step-P .step-header{background:#0A2B18;border-color:var(--green-bd)}
+.step-F .step-header{background:#2B1A0A;border-color:#5C3A1A}
+.exec-col .step-header{background:#2B2000;border-color:var(--gold-soft)}
+.step-letter{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;flex-shrink:0}
+.step-I .step-letter{background:var(--blue-bd);color:var(--blue)}
+.step-P .step-letter{background:var(--green-bd);color:var(--green)}
+.step-F .step-letter{background:#5C3A1A;color:var(--amber)}
+.exec-col .step-letter{background:var(--gold-soft);color:#FFD070;font-size:13px}
+.step-title{font-size:11px;font-weight:600;color:var(--txt)}
+.step-hint{font-size:10px;color:var(--txt-4);margin-top:1px}
+.step-body{padding:10px}
+
+/* ── blocks ── */
+.block{background:var(--panel);border-radius:6px;border:1px solid var(--line);padding:8px 10px;margin-bottom:6px}
+.block:last-child{margin-bottom:0}
+.block-title{font-size:10px;font-weight:600;color:var(--gold);margin-bottom:5px}
+.row{display:flex;gap:5px;margin-bottom:4px;flex-wrap:wrap}
+.row:last-child{margin-bottom:0}
+.pill{border-radius:4px;padding:2px 7px;font-size:10px;font-weight:500}
+.pill-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-bd)}
+.pill-green{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)}
+.pill-amber{background:var(--amber-bg);color:var(--amber);border:1px solid var(--amber-bd)}
+.pill-red{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd)}
+.pill-gray{background:var(--panel-2);color:var(--txt-3);border:1px solid #2A3A4A}
+.pill-gold{background:#1A1400;color:var(--gold);border:1px solid var(--gold-soft)}
+.pill-new{background:var(--violet-bg);color:var(--violet);border:1px solid var(--violet-bd)}
+.sep{height:1px;background:var(--line);margin:6px 0}
+.hint{font-size:9px;color:var(--txt-4);margin-top:4px;line-height:1.5}
+.hint.warn{color:var(--amber)}
+.hint.bad{color:var(--red);font-weight:600}
+.hint.good{color:var(--green)}
+
+/* ── kill zone ── */
+.kz-block{background:#070D1A;border:1px solid var(--blue-bd);border-radius:6px;padding:8px 10px;margin-bottom:6px}
+.kz-block .block-title{color:var(--blue);margin-bottom:6px}
+.kz-anchor{font-size:9px;color:var(--txt-4);margin-bottom:7px;line-height:1.5;border-left:2px solid var(--blue-bd);padding-left:6px}
+.kz-scroll{overflow-x:auto}
+.kz-table{width:100%;border-collapse:collapse;min-width:250px}
+.kz-table th{font-size:9px;font-weight:600;color:var(--txt-4);padding:0 4px 5px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+.kz-table td{font-size:10px;padding:6px 4px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.kz-table tr:last-child td{border-bottom:none}
+.kz-session{display:flex;align-items:center;gap:6px}
+.kz-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.dot-blue{background:#1E8AFF}.dot-amber{background:var(--amber)}.dot-grn{background:#1A9E60}
+.kz-name{color:var(--blue);font-weight:600;font-size:11px}
+.kz-time{color:var(--gold);font-weight:600;font-size:11px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.kz-ref{color:var(--txt-3);font-size:10px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.kz-dur{font-size:9px;color:var(--green);margin-top:2px}
+.kz-warning{font-size:9px;color:var(--amber);margin-top:7px;padding-top:6px;border-top:1px solid var(--line);line-height:1.5}
+
+/* ── narratif ── */
+.narratif-block{background:#07100D;border:1px solid var(--green-bd);border-radius:6px;padding:8px 10px;margin-bottom:6px}
+.narratif-block .block-title{color:var(--green)}
+.narratif-card{background:var(--panel);border-radius:5px;border:1px solid var(--line);padding:6px 8px;margin-bottom:5px}
+.narratif-card:last-child{margin-bottom:0}
+.dir-badge{border-radius:3px;padding:2px 8px;font-size:9px;font-weight:600;display:inline-block;margin-bottom:4px}
+.dir-bull{background:var(--green-bg);color:var(--green);border:1px solid var(--green-bd)}
+.dir-bear{background:var(--red-bg);color:var(--red);border:1px solid var(--red-bd)}
+.narratif-tfs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:5px}
+.ntf{background:var(--panel-2);border-radius:3px;padding:3px 4px;text-align:center}
+.ntf-tf{font-size:8px;color:var(--txt-4);font-weight:600}
+.ntf-val{font-size:9px;color:var(--txt);margin-top:1px;line-height:1.3}
+.narratif-phrase{font-size:9px;color:var(--txt-3);font-style:italic;line-height:1.5;border-left:2px solid var(--gold);padding-left:5px;margin-bottom:4px}
+.narratif-dom{font-size:9px;font-weight:600}
+.dom-bull{color:var(--green)}.dom-bear{color:var(--red)}
+
+/* ── IDM ── */
+.idm-block{background:#1A0D00;border:1px solid var(--amber);border-radius:6px;padding:8px 10px;margin-bottom:6px}
+.idm-block .block-title{color:var(--amber)}
+.idm-schema{background:#0D0800;border-radius:4px;padding:6px 8px;font-size:9px;color:var(--txt-3);font-family:var(--mono);line-height:1.75;margin-top:4px;white-space:pre;overflow-x:auto}
+.idm-schema .target{color:#E24B4A}
+.idm-schema .idm{color:var(--amber)}
+.idm-schema .entry{color:var(--green)}
+.crit-head{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin:7px 0 4px}
+.crit-head span:first-child{font-size:9px;color:var(--txt-4);font-weight:600;letter-spacing:.04em}
+.crit-gate{font-size:9px;font-weight:700;color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-bd);border-radius:3px;padding:1px 6px;white-space:nowrap}
+.crit-list{display:flex;flex-direction:column;gap:3px}
+.crit{display:flex;align-items:flex-start;gap:6px;background:#0D0800;border:1px solid #2A2000;border-radius:4px;padding:4px 6px}
+.crit .bx{width:12px;height:12px;border:1px solid var(--amber-bd);border-radius:2px;flex-shrink:0;margin-top:2px}
+.crit .ct{font-size:9px;color:var(--txt-2);line-height:1.45}
+.crit .ct b{color:var(--amber);font-weight:600}
+
+/* ── checklist ── */
+.exec-checks{display:flex;flex-direction:column;gap:4px}
+.check-row{display:flex;align-items:flex-start;gap:7px;background:var(--panel);border-radius:4px;padding:5px 8px;border:1px solid var(--line)}
+.bx{width:13px;height:13px;border:1px solid var(--txt-4);border-radius:2px;flex-shrink:0;margin-top:1px;background:#070D14}
+.check-num{font-size:9px;color:var(--gold);font-family:var(--mono);flex-shrink:0;margin-top:1px;min-width:14px}
+.check-text{font-size:10px;color:var(--txt-2);line-height:1.4}
+.rr-box{background:var(--green-bg);border:1px solid var(--green-bd);border-radius:6px;padding:8px;text-align:center;margin-top:6px}
+.rr-val{font-size:16px;font-weight:700;color:var(--green);font-variant-numeric:tabular-nums}
+.rr-label{font-size:10px;color:var(--txt-4);margin-top:1px}
+
+/* ── risk grid ── */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:2px}
+.risk-cell{background:#0D0800;border:1px solid var(--gold-soft);border-radius:4px;padding:5px;text-align:center}
+.risk-cell .lbl{font-size:9px;color:var(--txt-4)}
+.risk-cell .val{font-size:12px;font-weight:600;margin-top:2px;letter-spacing:.06em}
+.v-amber{color:var(--amber)}.v-green{color:var(--green)}.v-gold{color:var(--gold)}
+
+/* ── non trade + footer ── */
+.non-trade{margin-top:12px;background:#0D0808;border:1px solid var(--red-bd);border-radius:8px;overflow:hidden}
+.nt-header{background:#1A0A0A;padding:7px 12px;display:flex;align-items:center;gap:6px}
+.nt-header-text{font-size:10px;font-weight:600;color:var(--red)}
+.nt-body{padding:8px 10px;display:flex;gap:6px;flex-wrap:wrap}
+.nt-pill{border-radius:4px;padding:2px 8px;font-size:10px;border:1px solid var(--red-bd);color:var(--red);background:var(--red-bg)}
+.footnote{margin-top:10px;background:var(--panel);border-radius:6px;border:1px solid var(--line);padding:8px 14px;font-size:10px;color:var(--txt-4);text-align:center;line-height:1.6}
+
+/* barre d'impression — écran seulement, masquée dans le PDF */
+#printBar{margin-top:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:10px 14px}
+#printBar button{font-family:var(--sans);font-size:11px;font-weight:600;cursor:pointer;
+  background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold);
+  border-radius:4px;padding:7px 14px}
+#printBar button:hover{background:var(--gold);color:var(--page)}
+#printBar span{font-size:10px;color:var(--txt-4);line-height:1.55;flex:1 1 260px}
+#printBar b{color:var(--txt-2)}
+.footnote span{color:var(--gold);font-weight:600}
+.mantra{background:#0A1206;border:1px solid var(--green-bd);border-radius:6px;padding:8px;margin-top:6px;text-align:center}
+.mantra p{font-size:9px;color:var(--txt-3);font-style:italic;line-height:1.6}
+.mantra cite{font-size:9px;color:var(--gold);display:block;margin-top:3px;font-style:normal}
+.ff-link{display:inline-block;background:var(--blue-bg);border:1px solid var(--blue-bd);border-radius:4px;padding:2px 8px;font-size:10px;color:var(--blue);margin:4px 4px 0 0}
+
+/* ── responsive ── */
+@media (max-width:1180px){
+  .flow{flex-wrap:wrap;gap:12px}
+  .step-col{flex:1 1 calc(50% - 6px);min-width:280px}
+  .arrow-col{display:none}
+}
+@media (max-width:660px){
+  body{padding:12px}
+  .step-col{flex:1 1 100%}
+  .risk-grid{grid-template-columns:1fr}
+  .narratif-tfs{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ══════════════════ IMPRESSION / PDF ══════════════════
+   Le document est sombre à l'écran : l'imprimer tel quel noierait la page
+   d'encre. On bascule donc le fond en clair — mais SANS aplatir les pastilles.
+   Le rouge (blocage), le vert (confirmation), l'ambre (vigilance) et le bleu
+   (contexte) portent le sens de la stratégie : les réduire tous au gris ferait
+   perdre au PDF l'information la plus utile. Chaque teinte est donc réécrite en
+   version claire, lisible sur papier, avec print-color-adjust pour que le
+   navigateur ne les supprime pas.
+   PDF : Ctrl+P → destination « Enregistrer au format PDF », en laissant
+   « Graphiques d'arrière-plan » coché. */
+@media print{
+  @page{size:A4 landscape;margin:8mm}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff;color:#111;padding:0;font-size:9px}
+  .wrap{max-width:none}
+  #printBar{display:none!important}
+
+  .header,.block,.step-card,.kz-block,.idm-block,.narratif-block,.narratif-card,
+  .check-row,.crit,.risk-cell,.non-trade,.footnote,.rr-box,.mantra,.ntf,.idm-schema{
+    background:#fff!important;border-color:#999!important;color:#111!important}
+  .step-header{background:#EFEFEF!important}
+  .header-title,.block-title,.step-label,.kz-time,.footnote span,.check-num{color:#7a5c10!important}
+  .step-title,.check-text,.crit .ct,.ntf-val,.kz-name,.narratif-phrase{color:#111!important}
+  .step-hint,.hint,.kz-ref,.kz-dur,.header-sub{color:#555!important}
+  .badge-exec{background:#7a5c10!important;color:#fff!important}
+  .step-letter{background:#ddd!important;color:#111!important}
+  .bx,.crit .bx{border-color:#333!important;background:#fff!important}
+
+  /* les quatre teintes sémantiques, transposées pour le papier */
+  .pill-blue {background:#E7EAF7!important;color:#2E3F79!important;border-color:#8E9CC9!important}
+  .pill-green{background:#E1EFE9!important;color:#1B5B43!important;border-color:#87B8A4!important}
+  .pill-amber{background:#F6EBD3!important;color:#7A5600!important;border-color:#C9A560!important}
+  .pill-red  {background:#F7E3E1!important;color:#8C2F26!important;border-color:#C68C86!important}
+  .pill-gray,.tag,.nt-pill{background:#F4F4F4!important;border-color:#999!important;color:#333!important}
+  .tag.tz{background:#E7EAF7!important;color:#2E3F79!important;border-color:#8E9CC9!important}
+  .hint.bad{color:#8C2F26!important} .hint.good{color:#1B5B43!important} .hint.warn{color:#7A5600!important}
+  /* la couleur de phase reste lisible sur le liseré des cartes I / P / F */
+  .step-I .step-card{border-color:#8E9CC9!important}
+  .step-P .step-card{border-color:#87B8A4!important}
+  .step-F .step-card{border-color:#C9A560!important}
+  .step-I .step-letter{background:#E7EAF7!important;color:#2E3F79!important}
+  .step-P .step-letter{background:#E1EFE9!important;color:#1B5B43!important}
+  .step-F .step-letter{background:#F6EBD3!important;color:#7A5600!important}
+
+  /* ne pas couper une carte ou un bloc en deux entre deux pages */
+  .step-card,.block,.kz-block,.idm-block,.narratif-block,.narratif-card,
+  .non-trade,.rr-box,.idm-schema,.crit,.check-row{
+    break-inside:avoid;page-break-inside:avoid}
+  .step-header{break-after:avoid;page-break-after:avoid}
+  .header{break-after:avoid;page-break-after:avoid}
+
+  .flow{flex-wrap:nowrap}
+  .arrow-col{display:flex}
+  svg line,svg path{stroke:#7a5c10!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="header">
+  <div class="header-title">Stratégie I-P-F — BK-BOOSTLtd</div>
+  <div class="header-sub">Precision Hunter · ICT Intraday · Gold XAU/USD · version corrigée</div>
+  <div class="header-tags">
+    <span class="tag">Daily → H4 → H1 → M15 → M3/M5</span>
+    <span class="tag">Risque ≤ 1 % / trade</span>
+    <span class="tag">RRR ≥ 1.5</span>
+    <span class="tag">IDM pris obligatoire</span>
+    <span class="tag tz">Heures : Goma UTC+2</span>
+  </div>
+</header>
+
+<div class="start-end">
+  <span class="badge-start">START</span>
+  <span class="mid">→ I → P → F →</span>
+  <span class="badge-exec">EXÉCUTION</span>
+</div>
+
+<div class="flow">
+
+  <!-- ══════════ ÉTAPE I ══════════ -->
+  <div class="step-col step-I">
+    <div class="step-label">Étape I</div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-letter">I</div>
+        <div>
+          <div class="step-title">IPDA &amp; Contexte Macro-GPS</div>
+          <div class="step-hint">Direction &amp; Biais HTF</div>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="kz-block">
+          <div class="block-title">⏰ Kill Zone active ?</div>
+          <div class="kz-anchor">Référence ICT = heure de New York. Goma est à UTC+2 sans changement d'heure, donc les fenêtres locales <b>décalent d'une heure</b> quand les États-Unis passent à l'heure d'hiver (début novembre → mi-mars).</div>
+          <div class="kz-scroll">
+          <table class="kz-table">
+            <thead>
+              <tr>
+                <th>Session</th>
+                <th>Goma — été US</th>
+                <th>Goma — hiver US</th>
+                <th>Réf. New York</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="kz-session"><span class="kz-dot dot-grn"></span><span class="kz-name">Asian</span></div></td>
+                <td><div class="kz-time">02h00 – 06h00</div><div class="kz-dur">4 h</div></td>
+                <td><div class="kz-time">03h00 – 07h00</div></td>
+                <td><div class="kz-ref">20h00 – 00h00</div></td>
+              </tr>
+              <tr>
+                <td><div class="kz-session"><span class="kz-dot dot-blue"></span><span class="kz-name">London</span></div></td>
+                <td><div class="kz-time">08h00 – 11h00</div><div class="kz-dur">3 h — resserré</div></td>
+                <td><div class="kz-time">09h00 – 12h00</div></td>
+                <td><div class="kz-ref">02h00 – 05h00</div></td>
+              </tr>
+              <tr>
+                <td><div class="kz-session"><span class="kz-dot dot-amber"></span><span class="kz-name">NY AM</span></div></td>
+                <td><div class="kz-time">13h00 – 16h00</div><div class="kz-dur">3 h</div></td>
+                <td><div class="kz-time">14h00 – 17h00</div></td>
+                <td><div class="kz-ref">07h00 – 10h00</div></td>
+              </tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="kz-warning">Hors Kill Zone → observation uniquement. Aucun ordre.<br>Noter l'heure d'entrée <b>et</b> le fuseau dans le journal, sinon la conformité n'est pas vérifiable après coup.</div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">📈 Phase de marché</div>
+          <div class="row">
+            <span class="pill pill-blue">Accumulation</span>
+            <span class="pill pill-green">Expansion</span>
+            <span class="pill pill-amber">Pullback</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">🧭 Contrôle du marché</div>
+          <div class="row"><span class="pill pill-green">Bullish — HH + HL</span></div>
+          <div class="row"><span class="pill pill-red">Bearish — LH + LL</span></div>
+          <div class="row"><span class="pill pill-green">Long → Zone Discount &lt; 50 %</span></div>
+          <div class="row"><span class="pill pill-amber">Short → Zone Premium &gt; 50 %</span></div>
+        </div>
+
+        <div class="narratif-block">
+          <div class="block-title">📝 Narratif journalier — exemples</div>
+          <div class="narratif-card">
+            <span class="dir-badge dir-bull">ACHETEURS dominent</span>
+            <div class="narratif-tfs">
+              <div class="ntf"><div class="ntf-tf">D1</div><div class="ntf-val">Expansion haussière</div></div>
+              <div class="ntf"><div class="ntf-tf">H4</div><div class="ntf-val">Pullback Discount</div></div>
+              <div class="ntf"><div class="ntf-tf">H1</div><div class="ntf-val">ChoCH haussier</div></div>
+              <div class="ntf"><div class="ntf-tf">M15</div><div class="ntf-val">Trigger entrée</div></div>
+            </div>
+            <div class="narratif-phrase">« Daily expansion haussière. H4 pullback en Discount. H1 ChoCH bullish post-IDM. Biais = LONG FVG H1. »</div>
+            <div class="narratif-dom dom-bull">→ Chercher des LONGS en Discount (&lt; 50 %)</div>
+          </div>
+          <div class="narratif-card">
+            <span class="dir-badge dir-bear">VENDEURS dominent</span>
+            <div class="narratif-tfs">
+              <div class="ntf"><div class="ntf-tf">D1</div><div class="ntf-val">Expansion baissière</div></div>
+              <div class="ntf"><div class="ntf-tf">H4</div><div class="ntf-val">Retest Premium</div></div>
+              <div class="ntf"><div class="ntf-tf">H1</div><div class="ntf-val">ChoCH baissier</div></div>
+              <div class="ntf"><div class="ntf-tf">M15</div><div class="ntf-val">Trigger entrée</div></div>
+            </div>
+            <div class="narratif-phrase">« Daily expansion baissière. H4 retest en Premium. H1 ChoCH bearish post-IDM. Biais = SHORT OB H1. »</div>
+            <div class="narratif-dom dom-bear">→ Chercher des SHORTS en Premium (&gt; 50 %)</div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">⚠️ Filtre fondamental</div>
+          <div class="row"><span class="pill pill-red">No trade si news rouge ≤ 30 min</span></div>
+          <div class="row"><span class="pill pill-gray">NFP · CPI · FOMC · ISM · Powell</span></div>
+          <div class="row">
+            <span class="ff-link">🌐 ForexFactory.com</span>
+            <span class="ff-link">⚡ FinancialJuice.com</span>
+          </div>
+          <div class="sep"></div>
+          <div class="block-title" style="margin-bottom:4px">Résidu macro — 3 jambes, 2 minutes</div>
+
+          <div class="row"><span class="pill pill-gray">Fondamental — DXY : haussier / baissier</span></div>
+          <div class="hint">Ouvrir DXY sur le même timeframe que le biais Daily de l'or. Lower Highs/Lower Lows = DXY baissier ; Higher Highs/Higher Lows = DXY haussier. Corrélation inverse classique : un DXY baissier confirme un long sur l'or, un DXY haussier confirme un short.</div>
+
+          <div class="row" style="margin-top:6px"><span class="pill pill-gray">Sentiment — VIX : Risk-On / Risk-Off</span></div>
+          <div class="hint">Ouvrir le VIX (pas le niveau absolu, la <b>pente</b>) : en hausse sur les derniers jours → Risk-Off, l'or est recherché comme refuge, tailwind pour un long. En baisse → Risk-On, l'appétit pour le risque revient, l'or perd son moteur de refuge — prudence sur un long, terrain plus favorable à un short.</div>
+
+          <div class="row" style="margin-top:6px">
+            <span class="pill pill-green">Haute — 3/3 alignés</span>
+            <span class="pill pill-amber">Modérée — 2/3</span>
+            <span class="pill pill-red">Fragile — ≤1/3</span>
+          </div>
+          <div class="hint">Verdict = Technique (biais I-P-F) + DXY + VIX, comptés séparément. <b>Fragile → scalp très prudent ou NO TRADE</b>, même si le score technique seul suffirait. Piège à connaître : en panique réelle (choc systémique), l'or ET le dollar montent ensemble comme double refuge — la corrélation inverse DXY s'inverse alors, c'est le VIX qui prime dans la lecture.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-col">
+    <svg width="32" height="20" viewBox="0 0 32 20" aria-hidden="true">
+      <defs><marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+      <line x1="2" y1="10" x2="26" y2="10" stroke="#C9A84C" stroke-width="1" marker-end="url(#a1)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════ ÉTAPE P ══════════ -->
+  <div class="step-col step-P">
+    <div class="step-label">Étape P</div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-letter">P</div>
+        <div>
+          <div class="step-title">Price Action &amp; Liquidité</div>
+          <div class="step-hint">Trajectoire &amp; POI</div>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="block">
+          <div class="block-title">🧲 Zones de liquidité (ERL)</div>
+          <div class="row">
+            <span class="pill pill-red">BSL — Buy Side</span>
+            <span class="pill pill-green">SSL — Sell Side</span>
+          </div>
+          <div class="row">
+            <span class="pill pill-gray">Equal Highs/Lows</span>
+            <span class="pill pill-gray">Swing H/L</span>
+            <span class="pill pill-gray">Stops</span>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">🔄 Cycle IRL ↔ ERL</div>
+          <div class="row"><span class="pill pill-blue">IRL → ERL (expansion / continuation)</span></div>
+          <div class="row"><span class="pill pill-green">ERL → IRL (retour / pullback POI)</span></div>
+          <div class="hint">Situer la position actuelle dans le cycle <b>avant</b> toute analyse de POI.</div>
+        </div>
+
+        <div class="idm-block">
+          <div class="block-title">⚠ Inducement (IDM)</div>
+          <div class="idm-schema"><span class="target">🎯 Vraie cible (BSL/SSL HTF)</span>
+   ↑ distance proportionnelle W/D
+<span class="idm">⚠ IDM — niveau intermédiaire</span>
+   ↑ attendre la prise de l'IDM
+<span class="entry">✓ Entrée — FVG / OB post-IDM</span></div>
+
+          <div class="crit-head">
+            <span>QUALIFIER LA VRAIE CIBLE</span>
+            <span class="crit-gate">seuil : 3 / 5 minimum</span>
+          </div>
+          <div class="crit-list">
+            <div class="crit"><span class="bx"></span><span class="ct"><b>① Ancienneté</b> — le niveau date du Weekly ou du Daily, pas de la séance</span></div>
+            <div class="crit"><span class="bx"></span><span class="ct"><b>② Densité</b> — plusieurs touches / equal highs-lows empilés</span></div>
+            <div class="crit"><span class="bx"></span><span class="ct"><b>③ Virgin level</b> — jamais rebalayé depuis sa formation</span></div>
+            <div class="crit"><span class="bx"></span><span class="ct"><b>④ Alignement MTF</b> — visible sur au moins deux timeframes supérieurs</span></div>
+            <div class="crit"><span class="bx"></span><span class="ct"><b>⑤ Proportion</b> — distance cohérente avec l'amplitude du mouvement HTF</span></div>
+          </div>
+          <div class="hint bad">Moins de 3 critères → ce n'est pas la vraie cible, c'est un IDM. Ne pas viser.</div>
+          <div class="hint bad">IDM non pris = PAS D'ENTRÉE</div>
+          <div class="hint good">TP cible → vraie liquidité HTF, jamais l'IDM</div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">🎯 POI institutionnel non mitigé</div>
+          <div class="row">
+            <span class="pill pill-blue">OB</span>
+            <span class="pill pill-blue">FVG</span>
+            <span class="pill pill-blue">IFVG</span>
+            <span class="pill pill-blue">BB</span>
+            <span class="pill pill-blue">MB</span>
+          </div>
+          <div class="sep"></div>
+          <div class="row"><span class="pill pill-amber">Sell POI → Premium uniquement</span></div>
+          <div class="row"><span class="pill pill-green">Buy POI → Discount uniquement</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-col">
+    <svg width="32" height="20" viewBox="0 0 32 20" aria-hidden="true">
+      <defs><marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+      <line x1="2" y1="10" x2="26" y2="10" stroke="#C9A84C" stroke-width="1" marker-end="url(#a2)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════ ÉTAPE F ══════════ -->
+  <div class="step-col step-F">
+    <div class="step-label">Étape F</div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-letter">F</div>
+        <div>
+          <div class="step-title">Fractal Model &amp; Exécution LTF</div>
+          <div class="step-hint">Validation &amp; Trigger</div>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="block">
+          <div class="block-title">🔍 Confirmation fractale (top-down)</div>
+          <div class="row">
+            <span class="pill pill-blue">ChoCH / BOS</span>
+            <span class="pill pill-blue">Displacement</span>
+          </div>
+          <div class="row"><span class="pill pill-gray">M15 → M5 → M3</span></div>
+          <div class="hint warn">Pas de ChoCH = pas d'entrée</div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">⚡ Déclencheur LTF (trigger) — UN seul</div>
+          <div class="row">
+            <span class="pill pill-amber">OB</span>
+            <span class="pill pill-amber">FVG</span>
+            <span class="pill pill-amber">IFVG</span>
+            <span class="pill pill-amber">BB</span>
+            <span class="pill pill-amber">MB</span>
+          </div>
+          <div class="row"><span class="pill pill-new">Unicorn Model</span></div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">🕯 Confirmation finale d'entrée</div>
+          <div class="row"><span class="pill pill-green">Candle 2 Closure</span></div>
+          <div class="row"><span class="pill pill-green">Rejection Candle</span></div>
+          <div class="row"><span class="pill pill-green">Engulfing</span></div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">✅ Checklist d'autorisation — 11 conditions</div>
+          <div class="exec-checks">
+            <div class="check-row"><span class="bx"></span><span class="check-num">01</span><span class="check-text">Kill Zone active (London / NY AM / Asian)</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">02</span><span class="check-text">Biais HTF Daily + H4 alignés</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">03</span><span class="check-text">IDM identifié et pris — vraie cible à 3/5 minimum</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">04</span><span class="check-text">POI non mitigé en zone Premium / Discount</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">05</span><span class="check-text">ChoCH + Displacement confirmé</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">06</span><span class="check-text">Trigger LTF + confirmation présents</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">07</span><span class="check-text">SL technique défini — jamais élargi</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">08</span><span class="check-text">TP sur vraie liquidité HTF (pas l'IDM)</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">09</span><span class="check-text">RRR ≥ 1.5 calculé avant l'entrée</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">10</span><span class="check-text">Risque ≤ 1 % capital — taille calculée</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-num">11</span><span class="check-text">Aucune news rouge dans les 30 min</span></div>
+          </div>
+          <div class="rr-box">
+            <div class="rr-val">RRR ≥ 1.5</div>
+            <div class="rr-label">Aucune exception · Risque max 1 % du capital</div>
+            <div class="hint bad" style="margin-top:3px">Si une seule case manque → PAS D'ENTRÉE</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-col">
+    <svg width="32" height="20" viewBox="0 0 32 20" aria-hidden="true">
+      <defs><marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+      <line x1="2" y1="10" x2="26" y2="10" stroke="#C9A84C" stroke-width="1" marker-end="url(#a3)"/>
+    </svg>
+  </div>
+
+  <!-- ══════════ EXÉCUTION ══════════ -->
+  <div class="step-col exec-col">
+    <div class="step-label">Exécution</div>
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-letter">GO</div>
+        <div>
+          <div class="step-title">Gestion du Trade</div>
+          <div class="step-hint">Set &amp; Step Back</div>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <div class="block">
+          <div class="block-title">▶ À l'entrée (immédiat)</div>
+          <div class="exec-checks">
+            <div class="check-row"><span class="bx"></span><span class="check-text">SL dans le broker — immédiat</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">TP1 (50 %) + TP2 (50 %) posés</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">Set &amp; Step Back</span></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">📈 En cours de trade</div>
+          <div class="exec-checks">
+            <div class="check-row"><span class="bx"></span><span class="check-text">+1R → SL en Breakeven</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">TP1 atteint → fermer 50 %</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">Trailing sur structure M5 / M15</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">POI invalide → sortie immédiate</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">Jamais élargir le SL</span></div>
+          </div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">📊 Risk Management</div>
+          <div class="risk-grid">
+            <div class="risk-cell"><div class="lbl">SL pts</div><div class="val v-amber">_____</div></div>
+            <div class="risk-cell"><div class="lbl">TP1 pts</div><div class="val v-green">_____</div></div>
+            <div class="risk-cell"><div class="lbl">TP2 pts</div><div class="val v-green">_____</div></div>
+            <div class="risk-cell"><div class="lbl">RRR visé</div><div class="val v-gold">_____</div></div>
+            <div class="risk-cell"><div class="lbl">Lots</div><div class="val v-gold">_____</div></div>
+            <div class="risk-cell"><div class="lbl">Risque $</div><div class="val v-green">_____</div></div>
+          </div>
+          <div class="hint" style="text-align:center;color:var(--gold)">2 trades max / session · Pas de re-entry</div>
+          <div class="hint">Consigner le <b>SL et les TP en points</b>. Les montants en dollars et les lots se déduisent du capital dans le registre — ne jamais les saisir à la main.</div>
+        </div>
+
+        <div class="block">
+          <div class="block-title">📓 Après le trade</div>
+          <div class="exec-checks">
+            <div class="check-row"><span class="bx"></span><span class="check-text">Journal dans les 30 min</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">Screenshots avant + après</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">2 questions systématiques</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">État émotionnel consigné</span></div>
+            <div class="check-row"><span class="bx"></span><span class="check-text">Report au registre maître</span></div>
+          </div>
+          <div class="hint bad">Les pertes et les journées NO TRADE se journalisent aussi.</div>
+          <div class="row" style="margin-top:6px">
+            <span class="pill pill-gold">T25</span>
+            <span class="pill pill-gold">T50</span>
+            <span class="pill pill-gold">T75</span>
+            <span class="pill pill-gold">T100</span>
+          </div>
+        </div>
+
+        <div class="mantra">
+          <p>« Je ne cherche pas à trader.<br>Je cherche un setup valide selon mon plan. »</p>
+          <cite>— BK-BOOSTLtd</cite>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="non-trade">
+  <div class="nt-header">
+    <span style="font-size:14px;color:var(--red)">🚫</span>
+    <span class="nt-header-text">Conditions de non-trade — si l'une est vraie : aucun ordre</span>
+  </div>
+  <div class="nt-body">
+    <span class="nt-pill">News rouge ≤ 30 min</span>
+    <span class="nt-pill">Hors Kill Zone</span>
+    <span class="nt-pill">RRR &lt; 1.5</span>
+    <span class="nt-pill">IDM non pris</span>
+    <span class="nt-pill">Vraie cible &lt; 3/5 critères</span>
+    <span class="nt-pill">Spread &gt; 0.50 USD</span>
+    <span class="nt-pill">Biais HTF ambigu</span>
+    <span class="nt-pill">Narratif fragile (≤ 1/3)</span>
+    <span class="nt-pill">2 pertes consécutives</span>
+    <span class="nt-pill">FOMO actif</span>
+    <span class="nt-pill">Fatigue / manque de concentration</span>
+    <span class="nt-pill">Objectif journalier atteint (+5 % / −2 % du capital)</span>
+    <span class="nt-pill">Pression financière externe</span>
+  </div>
+</div>
+
+<div class="footnote">
+  <span>Règle absolue :</span> un trade pris selon ce plan et perdu est un bon trade. Un trade pris hors de ce plan et gagné est un mauvais trade.
+</div>
+
+<div id="printBar">
+  <button type="button" id="bPrintStrat">Imprimer / PDF</button>
+  <span>Dans la fenêtre d'impression : destination <b>« Enregistrer au format PDF »</b>, orientation <b>paysage</b>, et <b>« Graphiques d'arrière-plan »</b> coché — le rouge et le vert portent le sens de la stratégie.</span>
+</div>
+
+</div>
+<script>
+  document.getElementById("bPrintStrat").addEventListener("click", function(){ window.print(); });
+</script>
+</body>
+</html>
