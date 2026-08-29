@@ -17,7 +17,13 @@
     font-family:"Segoe UI",system-ui,sans-serif;color:var(--paper);
     padding:2rem 1.2rem;
   }
-  .wrap{max-width:640px;width:100%}
+  /* Réduit de 640 à 460px : à 640px, le bloc titre+description de chaque
+     carte ne remplissait qu'un tiers de la largeur, laissant un vide flottant
+     avant le lien « Ouvrir → » plaqué à droite par justify-content:space-
+     between — visible et signalé comme un vide anormal. À 460px, l'écart
+     entre le texte et le lien redevient un espacement volontaire, pas un
+     trou. */
+  .wrap{max-width:460px;width:100%}
   .eyebrow{font-family:"Consolas",monospace;font-size:.75rem;letter-spacing:.2em;
     text-transform:uppercase;color:var(--gold);margin:0 0 .6rem}
   h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2rem,6vw,3rem);

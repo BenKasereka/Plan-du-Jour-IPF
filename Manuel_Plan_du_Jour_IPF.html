@@ -221,9 +221,15 @@ body{
 
 /* ── PAGE DE MENTIONS (verso du titre) ───────────────────────────────────── */
 .imprint-page{font-family:"IBM Plex Sans",system-ui,sans-serif;font-size:.92rem}
+/* Plus de max-width:44rem ici : cette limite laissait le tableau de
+   metadonnees s'arreter bien avant le bord droit de la carte, alors que
+   les paragraphes juste en dessous (« Nature du document », l'encadre des
+   droits) allaient jusqu'au bord — un vide visible et signale, dans la
+   MEME carte. Le tableau utilise desormais la meme largeur que tout le
+   reste de la colonne (.col, 68ch), donc le meme bord droit partout. */
 .imprint-page .meta{
   display:grid;grid-template-columns:auto 1fr;gap:.1rem 1.4rem;
-  margin:0 0 1.8rem;max-width:44rem;
+  margin:0 0 1.8rem;
 }
 .imprint-page .meta dt{
   font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.66rem;
